@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coffee Dreams ☕</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #fdf7f2;
+      color: #3b2f2f;
+    }
+    header {
+      background-color: #d4a373;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .logo {
+      font-size: 1.8em;
+      font-weight: bold;
+    }
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+    }
+    .nav-btn {
+      background-color: #b68c60;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+    .nav-btn:hover {
+      background-color: #a67c52;
+      transform: translateY(-2px);
+    }
+    .cart-btn {
+      background-color: #3b2f2f;
+      margin-left: 15px;
+    }
+
+    section {
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #d4a373, #b68c60);
+      color: white;
+      padding: 120px 20px;
+      border-radius: 0 0 50px 50px;
+    }
+
+    .hero h2 {
+      font-size: 3em;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .hero button {
+      background-color: #3b2f2f;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 25px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .hero button:hover {
+      transform: scale(1.1);
+      background-color: #5a4747;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: 0.3s;
+      padding: 30px 10px;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card .icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #d4a373, #b68c60);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 35px;
+      color: white;
+    }
+
+    .card h3 {
+      margin: 10px 0 5px;
+    }
+
+    .card p {
+      color: #d4a373;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    .add-to-cart {
+      background-color: #d4a373;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .add-to-cart:hover {
+      background-color: #b68c60;
+    }
+
+    .cart-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 1000;
+    }
+
+    .cart-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 500px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .cart-total {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin: 20px 0;
+      text-align: right;
+    }
+
+    .checkout-btn {
+      background-color: #3b2f2f;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 25px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 1em;
+    }
+
+    .close-cart {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 1.5em;
+      cursor: pointer;
+      color: #3b2f2f;
+    }
+
+    footer {
+      background-color: #3b2f2f;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">☕ Coffee Dreams</div>
+    <div class="nav-buttons">
+      <button class="nav-btn" onclick="scrollToSection('home')">Головна</button>
+      <button class="nav-btn" onclick="scrollToSection('shop')">Магазин</button>
+      <button class="nav-btn" onclick="scrollToSection('about')">Про нас</button>
+      <button class="nav-btn" onclick="scrollToSection('contact')">Контакти</button>
+      <button class="nav-btn cart-btn" onclick="openCart()">🛒 Кошик (<span id="cart-count">0</span>)</button>
+    </div>
+  </header>
+
+  <section class="hero" id="home">
+    <h2>Смак справжньої кави</h2>
+    <p>Найкраща кава з усього світу — у твоїй чашці ☕</p>
+    <button onclick="scrollToSection('shop')">Перейти в магазин</button>
+  </section>
+
+  <section id="shop">
+    <h2>Наші кавові пропозиції</h2>
+    <div class="products">
+      <div class="card">
+        <div class="icon">🌰</div>
+        <h3>Arabica Premium</h3>
+        <p>250 грн</p>
+        <button class="add-to-cart" onclick="addToCart('Arabica Premium', 250)">Додати до кошика</button>
+      </div>
+      <div class="card">
+        <div class="icon">🔥</div>
+        <h3>Colombian Dark</h3>
+        <p>230 грн</p>
+        <button class="add-to-cart" onclick="addToCart('Colombian Dark', 230)">Додати до кошика</button>
+      </div>
+      <div class="card">
+        <div class="icon">🍫</div>
+        <h3>Espresso Mix</h3>
+        <p>210 грн</p>
+        <button class="add-to-cart" onclick="addToCart('Espresso Mix', 210)">Додати до кошика</button>
+      </div>
+      <div class="card">
+        <div class="icon">🌿</div>
+        <h3>Ethiopian Light</h3>
+        <p>270 грн</p>
+        <button class="add-to-cart" onclick="addToCart('Ethiopian Light', 270)">Додати до кошика</button>
+      </div>
+      <div class="card">
+        <div class="icon">🏔️</div>
+        <h3>Brazilian Gold</h3>
+        <p>240 грн</p>
+        <button class="add-to-cart" onclick="addToCart('Brazilian Gold', 240)">Додати до кошика</button>
+      </div>
+      <div class="card">
+        <div class="icon">⭐</div>
+        <h3>Italian Roast</h3>
+        <p>260 грн</p>
+        <button class="add-to-cart" onclick="addToCart('Italian Roast', 260)">Додати до кошика</button>
+      </div>
+      <div class="card">
+        <div class="icon">🌅</div>
+        <h3>Morning Blend</h3>
+        <p>220 грн</p>
+        <button class="add-to-cart" onclick="addToCart('Morning Blend', 220)">Додати до кошика</button>
+      </div>
+      <div class="card">
+        <div class="icon">🌙</div>
+        <h3>Evening Decaf</h3>
+        <p>200 грн</p>
+        <button class="add-to-cart" onclick="addToCart('Evening Decaf', 200)">Додати до кошика</button>
+      </div>
+    </div>
+  </section>
+
+ <section id="about">
+    <h2>Про нас</h2>
+    <p>Ми створили Coffee Dreams, щоб дарувати людям затишок, тепло і аромат справжньої кави. Кожне зерно обсмажене з любов’ю 💛</p>
+  </section>
+
+  <section id="contact">
+    <h2>Контакти</h2>
+    <p>📍 вул. Ароматна, 15, Київ</p>
+    <p>📞 +380 97 555 55 55</p>
+  </section>
+
+  <footer>
+    © 2025 Coffee Dreams. Всі права захищено.
+  </footer>
+</body>
+</html>
